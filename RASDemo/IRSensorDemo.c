@@ -28,3 +28,4 @@ void IRSensorDemo(void) {
   
     Printf("\n");
 }
+//This is a test comment. Hello world. Peace.
