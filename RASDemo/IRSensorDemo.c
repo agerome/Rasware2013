@@ -7,9 +7,9 @@ tADC *adc[4];
 
 void initIRSensor(void) {
     adc[0] = InitializeADC(PIN_D0);
-    adc[1] = InitializeADC(PIN_D1);
-    adc[2] = InitializeADC(PIN_D2);
-    adc[3] = InitializeADC(PIN_D3);
+    //adc[1] = InitializeADC(PIN_D1);
+    //adc[2] = InitializeADC(PIN_D2);
+    //adc[3] = InitializeADC(PIN_D3);
 }
 
 void IRSensorDemo(void) {
@@ -17,19 +17,14 @@ void IRSensorDemo(void) {
         
       while(!KeyWasPressed()) {
         float ADCValue = ADCRead(adc[0]);
-        Printf("IR values: %d\t", (int)(1000 * ADCValue));
-        ADCValue = ADCRead(adc[1]);
+        Printf("IR values: %d\r", (int)(1000 * ADCValue));
+       /* ADCValue = ADCRead(adc[1]);
         Printf(" %d\t", (int)(1000 * ADCValue));
         ADCValue = ADCRead(adc[2]);
         Printf(" %d\t", (int)(1000 * ADCValue));
         ADCValue = ADCRead(adc[3]);
-        Printf(" %d\r", (int)(1000 * ADCValue));
+        Printf(" %d\r", (int)(1000 * ADCValue));*/
     }
   
     Printf("\n");
 }
-//This is a test comment. Hello world. Peace.
-//This is an additional test comment. This is not a drill. Repeat, this is not a drill.
-//yo
-//Calm down, you just need to calm down.
-//Twinkie Winkie
