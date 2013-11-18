@@ -10,7 +10,7 @@ tLineSensor *ls;
 int main(void) {
 		int error;
 		float line[8];
-			int x;
+		int x;
 		//int lastError = 0;
 	  //float speedR = .35;
 	  //float speedL = .35;

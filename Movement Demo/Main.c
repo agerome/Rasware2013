@@ -8,18 +8,18 @@ tMotor *motors[2];
 int main(void) {
     InitializeMCU();
     motors[0] = InitializeMotor(PIN_B7, PIN_B6, true, false);
-		motors[1] = InitializeMotor(PIN_C5, PIN_C4, true, false);
+		motors[1] = InitializeMotor(PIN_F3, PIN_F2, true, false);
     
     while(1)
 		{
-	  SetMotor(motors[0], .33);
-    SetMotor(motors[1], -.392);
+	  SetMotor(motors[0], .7);
+    SetMotor(motors[1], .6);
 	
-		Wait(5.0);
+		/*Wait(5.0);
 	
 		SetMotor(motors[0], 0);
     SetMotor(motors[1], 0);
 			
-		Wait(5.0);
+		Wait(5.0);*/
 		}
 }
