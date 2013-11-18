@@ -14,9 +14,9 @@ int main(void) {
 		float line[8];
 		int x;
 		int lastError = 0;
-	  float speedR = -0.5; //these work at least up to 0.4
-	  float speedL = -0.5;
-		float kp = .19; //these might be too high? not sure
+	  float speedR = -0.4; //these work at least up to 0.4
+	  float speedL = -0.4;
+		float kp = .30; //these might be too high? not sure
 		float kd = .3
 	;
 		float PIDvalue;
@@ -41,31 +41,11 @@ int main(void) {
 					line[x] = 0;
 			}
 			
-			error = line[0] * -4 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 4;
+			error = line[0] * -3 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 3;
 			if(error == 0)
 			{
-				/*
-				Not sure if these if statements will fix our turning problem. The idea is that,
-				if the error suddenly drops to zero from a high amount, then it has lost track
-				of the line and attempts a sharp turn to find it again. The values here are
-				somewhat arbitrary, and may need adjustment. If this doesn't work at all, just
-				cut it out and either slow the robot down or try to fix it another way.
-				*/
-				if(lastError >= 4)
-				{
-					speedR = -1.0;
-					speedL = -0.5;
-				}
-				else if(lastError <= -4)
-				{
-					speedR = -0.5;
-					speedL = -1.0;
-				}
-				else
-				{
 				speedR = -.5; //make sure you change the speed here too
 				speedL = -.5;
-				}
 			}
 			else
 			{
