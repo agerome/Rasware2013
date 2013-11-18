@@ -14,9 +14,9 @@ int main(void) {
 		float line[8];
 		int x;
 		int lastError = 0;
-	  float speedR = -0.5; //these work at least up to 0.4
-	  float speedL = -0.5;
-		float kp = .19; //these might be too high? not sure
+	  float speedR = -0.4; //these work at least up to 0.4
+	  float speedL = -0.4;
+		float kp = .30; //these might be too high? not sure
 		float kd = .3
 	;
 		float PIDvalue;
@@ -41,6 +41,7 @@ int main(void) {
 					line[x] = 0;
 			}
 			
+<<<<<<< HEAD
 			error = line[0] * -4 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 4;
 			if(error == 4) //far right sensor only - error = 8
 				error += 4;
@@ -67,9 +68,13 @@ int main(void) {
 				}
 				else
 				{
+=======
+			error = line[0] * -3 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 3;
+			if(error == 0)
+			{
+>>>>>>> 539d94918917788260088fdbc5a60de977b35f62
 				speedR = -.5; //make sure you change the speed here too
 				speedL = -.5;
-				}
 			}
 			else
 			{
