@@ -42,6 +42,10 @@ int main(void) {
 			}
 			
 			error = line[0] * -4 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 4;
+			if(error == 4) //far right sensor only - error = 8
+				error += 4;
+			if(error == -4)//far left sensor only - error = -8
+				error -= 4;
 			if(error == 0)
 			{
 				/*
@@ -51,12 +55,12 @@ int main(void) {
 				somewhat arbitrary, and may need adjustment. If this doesn't work at all, just
 				cut it out and either slow the robot down or try to fix it another way.
 				*/
-				if(lastError >= 4)
+				if(lastError >= 6)
 				{
 					speedR = -1.0;
 					speedL = -0.5;
 				}
-				else if(lastError <= -4)
+				else if(lastError <= -6)
 				{
 					speedR = -0.5;
 					speedL = -1.0;
