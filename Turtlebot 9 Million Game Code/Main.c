@@ -14,16 +14,19 @@ int main(void) {
 		float line[8];
 		int x;
 		int lastError = 0;
-	  float speedR = -0.4; //these work at least up to 0.4
-	  float speedL = -0.4;
-		float kp = .30; //these might be too high? not sure
-		float kd = .3
-	;
+	  float speedR = -0.55; //these work at least up to 0.4
+	  float speedL = -0.55;
+		float kp = .35; //these might be too high? not sure
+		float kd = .35;
 		float PIDvalue;
 		InitializeMCU();
     gls = InitializeGPIOLineSensor(PIN_B5, PIN_D0, PIN_D1, PIN_D2, PIN_D3, PIN_E0, PIN_C6, PIN_C7);
 		motors[0] = InitializeMotor(PIN_B7, PIN_B6, true, false);
 		motors[1] = InitializeMotor(PIN_F3, PIN_F2, true, false);
+		Wait(.2);
+		SetMotor(motors[0],-.9);
+		SetMotor(motors[1],-.85);
+		Wait(1);
     
     while (1) {
         
@@ -41,7 +44,6 @@ int main(void) {
 					line[x] = 0;
 			}
 			
-<<<<<<< HEAD
 			error = line[0] * -4 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 4;
 			if(error == 4) //far right sensor only - error = 8
 				error += 4;
@@ -56,25 +58,21 @@ int main(void) {
 				somewhat arbitrary, and may need adjustment. If this doesn't work at all, just
 				cut it out and either slow the robot down or try to fix it another way.
 				*/
-				if(lastError >= 6)
+				/*if(lastError >= 6)
 				{
-					speedR = -1.0;
-					speedL = -0.5;
+					speedR = -0.8;
+					speedL = -0.1;
 				}
 				else if(lastError <= -6)
 				{
-					speedR = -0.5;
-					speedL = -1.0;
+					speedR = -0.1;
+					speedL = -0.8;
 				}
 				else
-				{
-=======
-			error = line[0] * -3 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 3;
-			if(error == 0)
-			{
->>>>>>> 539d94918917788260088fdbc5a60de977b35f62
-				speedR = -.5; //make sure you change the speed here too
-				speedL = -.5;
+				{*/
+					speedR = -.55; //make sure you change the speed here too
+					speedL = -.55;
+				//}
 			}
 			else
 			{

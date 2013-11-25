@@ -13,7 +13,7 @@ int main(void) {
     
     
     while (1) {
-			/*
+			
 			ADCValue = (int)(ADCRead(adc) * 1000);
       if(ADCValue > 500)
 			{
@@ -29,9 +29,6 @@ int main(void) {
 			{
 				SetMotor(motors[0],-.45);
 				SetMotor(motors[1],.45);
-			}
-       */
-				SetMotor(motors[0], -1.0);
-				SetMotor(motors[1], 0.91);			
+			}			
     }
 }
