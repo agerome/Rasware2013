@@ -18,16 +18,16 @@ int main(void) {
 		float line[8];
 		int x;
 		int lastError = 0;
-	  float speedR = -0.4; //these work at least up to 0.4
-	  float speedL = -0.4;
+	  float speedR = -.05; //these work at least up to 0.4
+	  float speedL = -.05;
 		float kp = .3; //these might be too high? not sure
 		float kd = .3;
 		float PIDvalue;
 		int frontSensor;
 		InitializeMCU();
     gls = InitializeGPIOLineSensor(PIN_B5, PIN_D0, PIN_D1, PIN_D2, PIN_D3, PIN_E0, PIN_C6, PIN_C7);
-		motors[0] = InitializeMotor(PIN_B7, PIN_B6, true, false);
-		motors[1] = InitializeMotor(PIN_F3, PIN_F2, true, false);
+		motors[0] = InitializeMotor(PIN_B6, PIN_B7, true, false);
+		motors[1] = InitializeMotor(PIN_F2, PIN_F3, true, false);
 		adc[0] = InitializeADC(PIN_D0);
     adc[1] = InitializeADC(PIN_D1);
     adc[2] = InitializeADC(PIN_D2);
@@ -39,22 +39,21 @@ int main(void) {
 			frontSensor = (int)(ADCRead(adc[0]) * 1000);
 			
 			if(frontSensor < 250)
-				speedL = speedR = 0;
+				speedL = speedR = 0; 
 			else
 			{
 				LineSensorReadArray(gls, line);
-				
 				//here be filtering
 				for(x = 0; x < 8; x++)
 				{
-					if(line[x] > 0.85)
+					if(line[x] > 0.85f)
 						line[x] = 1;
 					else
 						line[x] = 0;
 				}
 				
 				testLine = line[0] + line[1] + line[2] + line[3] + line[4] + line[5] + line[6] + line[7];
-				if(testLine == 0)
+				/*if(testLine == 0)
 				{
 					ADCRight = (int)(ADCRead(adc[1]) * 1000);
 					ADCLeft = (int)(ADCRead(adc[2]) * 1000);
@@ -69,9 +68,9 @@ int main(void) {
 						speedR += .05;
 					}
 					
-				}
-				else
-				{
+				}*/
+				//else
+				//{
 					error = line[0] * -4 + line[1] * -2 + line[2] * -1 + line[5] + line[6] * 2 + line[7] * 4;
 					if(error == 4) //far right sensor only - error = 8
 						error += 4;
@@ -79,25 +78,25 @@ int main(void) {
 						error -= 4;
 					if(error == 0)
 					{
-							speedR = -.4; //make sure you change the speed here too
-							speedL = -.4;
+							speedR = -.05; //make sure you change the speed here too
+							speedL = -.05;
 					}
 					else
 					{
 						PIDvalue = error * kp + (error - lastError)/2 * kd;
-						speedR -= PIDvalue;
-						speedL += PIDvalue;
-						if(speedR > 1) //this part prevents motor values overflowing
+						//speedR -= PIDvalue;
+						//speedL += PIDvalue;
+						/*if(speedR > 1) //this part prevents motor values overflowing
 							speedR = 1;
 						if(speedR < -1)
 							speedR = -1;
 						if(speedL > 1)
 							speedL = 1;
 						if(speedL < -1)
-							speedL = -1;
+							speedL = -1;*/
 						lastError = error;
 					}
-        }
+        //}
     }
 	}
 }

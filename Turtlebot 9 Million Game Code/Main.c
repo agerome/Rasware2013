@@ -14,22 +14,18 @@ int main(void) {
 		float line[8];
 		int x;
 		int lastError = 0;
-	  float speedR = -0.55; //these work at least up to 0.4
-	  float speedL = -0.55;
-		float kp = .35; //these might be too high? not sure
-		float kd = .35;
+	  float speedR = 0.45; //these work at least up to 0.4
+	  float speedL = 0.45;
+		float kp = .15; //these might be too high? not sure
+		float kd = .15;
 		float PIDvalue;
 		InitializeMCU();
     gls = InitializeGPIOLineSensor(PIN_B5, PIN_D0, PIN_D1, PIN_D2, PIN_D3, PIN_E0, PIN_C6, PIN_C7);
 		motors[0] = InitializeMotor(PIN_B7, PIN_B6, true, false);
 		motors[1] = InitializeMotor(PIN_F3, PIN_F2, true, false);
-		Wait(.2);
-		SetMotor(motors[0],-.9);
-		SetMotor(motors[1],-.85);
-		Wait(1);
+
     
-    while (1) {
-        
+    while (1) { 
       SetMotor(motors[0],speedL);
 			SetMotor(motors[1],speedR);
 			
@@ -49,46 +45,26 @@ int main(void) {
 				error += 4;
 			if(error == -4)//far left sensor only - error = -8
 				error -= 4;
-			if(error == 0)
+			/*if(error == 0)
 			{
-				/*
-				Not sure if these if statements will fix our turning problem. The idea is that,
-				if the error suddenly drops to zero from a high amount, then it has lost track
-				of the line and attempts a sharp turn to find it again. The values here are
-				somewhat arbitrary, and may need adjustment. If this doesn't work at all, just
-				cut it out and either slow the robot down or try to fix it another way.
-				*/
-				/*if(lastError >= 6)
-				{
-					speedR = -0.8;
-					speedL = -0.1;
-				}
-				else if(lastError <= -6)
-				{
-					speedR = -0.1;
-					speedL = -0.8;
-				}
-				else
-				{*/
-					speedR = -.55; //make sure you change the speed here too
-					speedL = -.55;
-				//}
+					speedR = .35; //make sure you change the speed here too
+					speedL = .35;
 			}
 			else
 			{
 				PIDvalue = error * kp + (error - lastError)/2 * kd;
 				speedR -= PIDvalue;
 				speedL += PIDvalue;
-				if(speedR > 1) //this part prevents motor values overflowing
-					speedR = 1;
-				if(speedR < -1)
-					speedR = -1;
-				if(speedL > 1)
-					speedL = 1;
-				if(speedL < -1)
-					speedL = -1;
+				if(speedR > .5) //this part prevents motor values overflowing
+					speedR = .5;
+				if(speedR < -.5)
+					speedR = -.5;
+				if(speedL > .5)
+					speedL = .5;
+				if(speedL < -.5)
+					speedL = -.5;
 				lastError = error;
-			}
+			}*/
 			
 			/*switch(error)
 			{
@@ -114,21 +90,21 @@ int main(void) {
 					speedL = speedR;
 					break;
 			}*/
-			/*if(error < 0)
+			if(error < 0)
 			{
-				SetMotor(motors[0],.35);
+				SetMotor(motors[0],.55);
 				SetMotor(motors[1],0);
 			}
 			else if(error > 0)
 			{
-				SetMotor(motors[1],.42);
+				SetMotor(motors[1],.52);
 				SetMotor(motors[0],0);
 			}
 			else
 			{
-				SetMotor(motors[0],.35);
-				SetMotor(motors[1],.35);
-			}*/
+				SetMotor(motors[0],.45);
+				SetMotor(motors[1],.45);
+			}
         
     }
 }

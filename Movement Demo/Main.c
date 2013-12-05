@@ -12,8 +12,8 @@ int main(void) {
     
     while(1)
 		{
-	  SetMotor(motors[0], .7);
-    SetMotor(motors[1], .6);
+	  SetMotor(motors[0], .5);
+    SetMotor(motors[1], .5);
 	
 		/*Wait(5.0);
 	
